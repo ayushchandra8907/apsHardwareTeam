@@ -17,7 +17,9 @@ void convertToInches(double d){
 void setup() {
   Serial.begin(9600);
   pinMode(7, OUTPUT);   //sensor
+  pinMode(8, OUTPUT); //led
   digitalWrite(7, LOW);
+  digitalWrite(8, LOW);
 }
 
 void loop() {
@@ -31,6 +33,12 @@ void loop() {
 
   Serial.print(" Inch value: ");
   Serial.println(convertToInches(rawSensor));
+
+  if(rawSensor < 10) {
+    digitalWrite(8, HIGH);
+  } else {
+    digitalWrite(8, LOW);
+  }
 
   delay(1000);
 }
