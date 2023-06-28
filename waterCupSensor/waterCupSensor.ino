@@ -1,23 +1,34 @@
 int rawSensor = 0; // raw sensor (jus a number)
+bool flooded = false;
 
-
-void convertToInches(double d){
+double convertToInches(double d){
   double zeroInc = 0;
   //double oneInc = 0;
   //double twoInc = 0;
   //double thrInc = 0;
-  double forInc = 0;
+  double forInc = 122;
 
-  double slope = (forInc-zeroInc)/4.0;
+  double slope = 1.0/(forInc-zeroInc);
 
   return slope*d;
   
 }
 
+void floodedProtocol(){
+  //digitalWrite(6, HIGH);
+  tone(3, 440, 500);
+
+
+  digitalWrite(8, HIGH);
+}
+
 void setup() {
   Serial.begin(9600);
   pinMode(7, OUTPUT);   //sensor
-  pinMode(8, OUTPUT); //led
+  pinMode(8, OUTPUT); //red led
+  pinMode(13, OUTPUT); //green led
+  pinMode(6, OUTPUT); //buzzer
+
   digitalWrite(7, LOW);
   digitalWrite(8, LOW);
 }
@@ -25,20 +36,28 @@ void setup() {
 void loop() {
   digitalWrite(7, HIGH);
   delay(10);
-  rawSensor = analogRead(SIGNAL_PIN);
+  rawSensor = analogRead(A5);
   digitalWrite(7, LOW);
 
   Serial.print("Sensor value: ");
-  Serial.print(rawSensor);
+  Serial.println(rawSensor);
 
-  Serial.print(" Inch value: ");
-  Serial.println(convertToInches(rawSensor));
-
-  if(rawSensor < 10) {
-    digitalWrite(8, HIGH);
+  if(rawSensor < 50) {
+    flooded = false;
+    digitalWrite(13, HIGH);
   } else {
-    digitalWrite(8, LOW);
+    flooded = true;
+    digitalWrite(13, LOW);
   }
 
-  delay(1000);
+
+
+  if(flooded){floodedProtocol();}
+
+  delay(500);
+  noTone(3);
+  digitalWrite(8, LOW);
+  delay(500);
+
+
 }
