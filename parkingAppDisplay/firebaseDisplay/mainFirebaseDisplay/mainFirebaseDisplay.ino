@@ -1,3 +1,4 @@
+//LIBRARIES===================================================================================
 #include <ESP8266WiFi.h>                                               
 #include <FirebaseArduino.h>                                        
 
@@ -10,6 +11,7 @@
  
 String fireStatus = "";  // led status received from firebase
 
+//connects board to firebase (do not touch!)
 void connectBoard(){
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);                               
   Serial.print("Connecting to ");
@@ -22,7 +24,7 @@ void connectBoard(){
   Serial.println();
   Serial.print("Connected to ");
   Serial.println(WIFI_SSID);
-  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);                  
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
 }
 
 //arrays===============================================================
@@ -57,9 +59,21 @@ void togPin(int pinNum, bool on){
 
 //sets all pins to either off or on irl----------------------------------
 void setAllPins(bool on){
+  int i = 1;
+  
   for(int r = 0; r<2; r++){
     for(int c = 0; c<4; c++){
+      //sets physical pin to off
       togPin(pinsArr[r][c], on);
+
+      //sets led off in firebase
+      String f = "SPACE_" + i;
+      if(on){
+        Firebase.setString(f, "ON")        
+      } else {
+        Firebase.setString(f, "OFF")                
+      }
+      i++:
     }
   }
 }
@@ -131,7 +145,12 @@ void loop()
 //    Serial.println("Command Error! Please send ON/OFF");
 //  }
 
+
+  //MAIN CODE===========================================================
+  //gets values from firebase and sets to config array
   updateConfigFromFirebase();
+
+  //takes the values from the config array and sends it to the pin LEDs.
   updateLot();
   
   delay(500);
