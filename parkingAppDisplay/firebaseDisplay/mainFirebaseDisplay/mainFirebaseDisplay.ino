@@ -26,16 +26,19 @@ void connectBoard(){
 }
 
 //arrays===============================================================
+//array for pins of LEDs
 int pinsArr[2][4] = {
-  {7, 6, 5, 4}, 
-  {13, 12, 11, 10}
+  {4, 5, 6, 7}, 
+  {10, 11, 12, 13}
 };
 
+//array for status of LEDs
 bool configArr[2][4] = {
   {true, true, true, true},
   {true, true, true, true}
 };
 
+//array for status of LEDs on flutter
 String firebaseArr[2][4] = {
   {Firebase.getString("SPACE_1"), Firebase.getString("SPACE_2"), Firebase.getString("SPACE_3"), Firebase.getString("SPACE_4")},
   {Firebase.getString("SPACE_5"), Firebase.getString("SPACE_6"), Firebase.getString("SPACE_7"), Firebase.getString("SPACE_8")}
@@ -43,6 +46,7 @@ String firebaseArr[2][4] = {
 
 
 //BOARD INIT===================================================================================
+//basic helper method for setting LED to on or off
 void togPin(int pinNum, bool on){
   if(on){
     digitalWrite(pinNum, HIGH);
@@ -51,7 +55,7 @@ void togPin(int pinNum, bool on){
   }
 }
 
-//sets all pins to either off or on----------------------------------
+//sets all pins to either off or on irl----------------------------------
 void setAllPins(bool on){
   for(int r = 0; r<2; r++){
     for(int c = 0; c<4; c++){
@@ -60,21 +64,8 @@ void setAllPins(bool on){
   }
 }
 
-void setAllFirebase(bool on){
-  int i = 1;
-  for(int r = 0; r<2; r++){
-    for(int c = 0; c<4; c++){
-      String f = "SPACE_" + i;
-      if(on){
-        Firebase.setString(f, "ON");        
-      } else {
-        Firebase.setString(f, "OFF");        
-      }
-    }
-  }
-}
-
 //updates irl lot based off config--------------------------------------
+//takes the infomration form config array and assings to LEDs
 void updateLot(){
   for(int r = 0; r<2; r++){
     for(int c = 0; c<4; c++){
@@ -83,17 +74,17 @@ void updateLot(){
   }
 }
 
-//updates firebase lot by reading config array
-void updateFirebaseLot(){
+//takes the information from firebase and assigns it to config array
+void updateConfigFromFirebase(){
   int i = 1;
   for(int r = 0; r<2; r++){
     for(int c = 0; c<4; c++){
       String f = "SPACE_" + i;
 
-      if(configArr[r][c] == true){
-        Firebase.setString(f, "ON");
+      if(Firebase.getString(f) == "ON"){
+        configArr[r][c] = true;
       } else {
-        Firebase.setString(f, "OFF");        
+        configArr[r][c] = false;
       }
       
       i++;
@@ -122,6 +113,8 @@ void setup()
  
 void loop() 
 {
+
+//CODE COPIED FOR REFERENCES! delte at on risk
 //  fireStatus = Firebase.getString("SPACE_1");                                      // get ld status input from firebase
 //  if (fireStatus == "ON") 
 //  {                                                          // compare the input of led status received from firebase
@@ -138,6 +131,8 @@ void loop()
 //    Serial.println("Command Error! Please send ON/OFF");
 //  }
 
+  updateConfigFromFirebase();
+  updateLot();
   
-
+  delay(500);
 }
