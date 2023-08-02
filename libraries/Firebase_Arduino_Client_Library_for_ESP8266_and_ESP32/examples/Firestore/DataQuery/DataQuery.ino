@@ -131,14 +131,14 @@ void loop()
 
         // The following query will query at collection c0 to get the 3 documents in the payload result with descending order.
 
-        // For the usage of FirebaseJson, see examples/FirebaseJson/BasicUsage/Create.ino
+        // For the usage of FirebaseJson, see examples/FirebaseJson/BasicUsage/Create_Edit_Parse/Create_Edit_Parse.ino
         FirebaseJson query;
 
         query.set("select/fields/[0]/fieldPath", "myDouble");
         query.set("select/fields/[1]/fieldPath", "myInteger");
         // query.set("select/fields/[2]/fieldPath", "myTimestamp");
 
-        query.set("from/collectionId", "c0");
+        query.set("from/collectionId", "a0");
         query.set("from/allDescendants", false);
         query.set("orderBy/field/fieldPath", "myInteger");
         query.set("orderBy/direction", "DESCENDING");
@@ -149,9 +149,12 @@ void loop()
         // The arguments is the consistencyMode value, see the function description at
         // https://github.com/mobizt/Firebase-ESP-Client/tree/main/src#runs-a-query
 
-        if (Firebase.Firestore.runQuery(&fbdo, FIREBASE_PROJECT_ID, "" /* databaseId can be (default) or empty */, "a0/b0" /* The document path */, &query /* The FirebaseJson object holds the StructuredQuery data */))
+        //Note that in this case the document path is the root ("/") because the collection a0 is at the root.
+
+        if (Firebase.Firestore.runQuery(&fbdo, FIREBASE_PROJECT_ID, "" /* databaseId can be (default) or empty */, "/" /* The document path */, &query /* The FirebaseJson object holds the StructuredQuery data */))
             Serial.printf("ok\n%s\n\n", fbdo.payload().c_str());
         else
             Serial.println(fbdo.errorReason());
+
     }
 }

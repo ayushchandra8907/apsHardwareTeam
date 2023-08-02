@@ -1,14 +1,14 @@
 #include "Firebase_Client_Version.h"
-#if !FIREBASE_CLIENT_VERSION_CHECK(40314)
+#if !FIREBASE_CLIENT_VERSION_CHECK(40319)
 #error "Mixed versions compilation."
 #endif
 
 /**
- * Google's Firebase Data class, FB_Session.h version 1.3.8
+ * Google's Firebase Data class, FB_Session.h version 1.3.10
  *
  * This library supports Espressif ESP8266, ESP32 and RP2040 Pico
  *
- * Created June 14, 2023
+ * Created July 29, 2023
  *
  * This work is a part of Firebase ESP Client library
  * Copyright (c) 2023 K. Suwatchai (Mobizt)
@@ -1013,7 +1013,7 @@ private:
                    struct server_response_data_t &response);
   bool readResponse(MB_String *payload, struct fb_esp_tcp_response_handler_t &tcpHandler,
                     struct server_response_data_t &response);
-  bool prepareDownload(const MB_String &filename, fb_esp_mem_storage_type type);
+  bool prepareDownload(const MB_String &filename, fb_esp_mem_storage_type type, bool openFileInWrireMode = false);
   void prepareDownloadOTA(struct fb_esp_tcp_response_handler_t &tcpHandler, struct server_response_data_t &response);
   void endDownloadOTA(struct fb_esp_tcp_response_handler_t &tcpHandler);
   bool processDownload(const MB_String &filename, fb_esp_mem_storage_type type, uint8_t *buf,
@@ -1047,7 +1047,7 @@ private:
 #endif
 #ifdef ENABLE_RTDB
   void clearQueueItem(QueueItem *item);
-  void sendStreamToCB(int code);
+  void sendStreamToCB(int code, bool report = true);
   void mSetIntValue(const char *value);
   void mSetFloatValue(const char *value);
   void mSetBoolValue(bool value);
