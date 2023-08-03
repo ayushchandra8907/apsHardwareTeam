@@ -69,11 +69,11 @@ void setAllPins(bool on){
       //sets led off in firebase
       String f = "SPACE_" + i;
       if(on){
-        Firebase.setString(f, "ON")        
+        Firebase.setString(f, "ON");    
       } else {
-        Firebase.setString(f, "OFF")                
+        Firebase.setString(f, "OFF");      
       }
-      i++:
+      i++;
     }
   }
 }
