@@ -252,5 +252,5 @@ void loop() {
   //updates lots
   updateLotStatus();
 
-  delay(3000); //delay for firebase update - change at will
+  delay(1500); //delay for firebase update - change at will
 }
