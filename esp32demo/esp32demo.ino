@@ -1,3 +1,6 @@
+
+ 
+
 /*
   Rui Santos
   Complete project details at our blog.
@@ -23,14 +26,14 @@
 #include "addons/RTDBHelper.h"
 
 // Insert your network credentials
-#define WIFI_SSID "REPLACE_WITH_YOUR_SSID"
-#define WIFI_PASSWORD "REPLACE_WITH_YOUR_PASSWORD"
+#define WIFI_SSID "dream"
+#define WIFI_PASSWORD "600312600"
 
 // Insert Firebase project API Key
-#define API_KEY "REPLACE_WITH_YOUR_FIREBASE_PROJECT_API_KEY"
+#define API_KEY "AIzaSyD-mrYNBScSexbSjY7U5lLQ6I3IElHlPX4"
 
 // Insert RTDB URLefine the RTDB URL */
-#define DATABASE_URL "REPLACE_WITH_YOUR_FIREBASE_DATABASE_URL" 
+#define DATABASE_URL "espdemo-519c5-default-rtdb.firebaseio.com" 
 
 //Define Firebase Data object
 FirebaseData fbdo;
@@ -96,7 +99,7 @@ void loop(){
     if (Firebase.RTDB.setFloat(&fbdo, "test/float", 0.01 + random(0,100))){
       Serial.println("PASSED");
       Serial.println("PATH: " + fbdo.dataPath());
-      Serial.println("TYPE: " + fbdo.dataType()); 
+      Serial.println("TYPE: " + fbdo.dataType());
     }
     else {
       Serial.println("FAILED");

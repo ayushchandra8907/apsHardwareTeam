@@ -3,8 +3,8 @@
  
 #define FIREBASE_HOST "apsparkingboardtest-default-rtdb.firebaseio.com"              // the project name address from firebase id
 #define FIREBASE_AUTH "xg6KvcccYzCzYCS2TPhRbisbzKzh14iOcumbSGin"       // the secret key generated from firebase
-#define WIFI_SSID "APS1057"                                          
-#define WIFI_PASSWORD "!APS1057!"                                  
+#define WIFI_SSID "dream"                                          
+#define WIFI_PASSWORD "600312600"                                  
  
 String fireStatus = "";  // led status received from firebase
 int led = 5;  
