@@ -57,7 +57,7 @@ int space2pin = 12;
 int space3pin = 14;
 int space4pin = 27;
 int space5pin = 26;
-int space6pin = 35;
+int space6pin = 25;
 int space7pin = 33;
 int space8pin = 32;
 
@@ -194,6 +194,48 @@ void updateLotStatus(){
     digitalWrite(space1pin, HIGH);
   } else {
     digitalWrite(space1pin, LOW);
+  }
+
+  if(space_2 == 1){
+    digitalWrite(space2pin, HIGH);
+  } else {
+    digitalWrite(space2pin, LOW);
+  }
+
+  if(space_3 == 1){
+    digitalWrite(space3pin, HIGH);
+  } else {
+    digitalWrite(space3pin, LOW);
+  }
+
+  if(space_4 == 1){
+    digitalWrite(space4pin, HIGH);
+  } else {
+    digitalWrite(space4pin, LOW);
+  }
+
+  if(space_5 == 1){
+    digitalWrite(space5pin, HIGH);
+  } else {
+    digitalWrite(space5pin, LOW);
+  }
+
+  if(space_6 == 1){
+    digitalWrite(space6pin, HIGH);
+  } else {
+    digitalWrite(space6pin, LOW);
+  }
+
+  if(space_7 == 1){
+    digitalWrite(space7pin, HIGH);
+  } else {
+    digitalWrite(space7pin, LOW);
+  }
+
+  if(space_8 == 1){
+    digitalWrite(space8pin, HIGH);
+  } else {
+    digitalWrite(space8pin, LOW);
   }
 }
 
